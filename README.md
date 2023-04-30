@@ -12,11 +12,7 @@ Telegram bot built using grammY and is inspired by an inside joke of my group of
 WIP
 
 ### Running the bot
-1. Create a `.env` file and add your telegram bot token.
-    + `TELEGRAM_TOKEN=<your token here>`
-2. Run the bot
-    + Normal mode: `npm run start`
-    + Debug mode: `npm run dev`. The log messages will be shown in the console.
+Run the bot in debug mode using `npm run dev`. Log messages will be shown in the console
 
 ### Feature to implement
 1. Validations on message inputs

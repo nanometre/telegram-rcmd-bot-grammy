@@ -2,7 +2,6 @@ import { Bot, session } from 'grammy';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import dotenv from 'dotenv'
 
-import { connect } from './utils/MongoUtils.js';
 import { pin, start } from './listeners/commands/index.js';
 import { recommend } from './listeners/hears/index.js'
 
@@ -13,16 +12,12 @@ export const bot = new Bot(process.env.TELEGRAM_TOKEN);
 /* ========== END INITIALISE ========== */
 
 
-/* DATABASE SETUP */
-// MongoDB setup is not used for storing session/convo history (for now)
-const dbClient = await connect(process.env.MONGO_CONN_URI, 'rcmd_bot')
-/* END DATABASE SETUP */
-
-
 /* ========== MIDDLEWARE SETUP ========== */
 /* TODO: Add session storage?*/
 bot.use(session({
-    initial: () => ({}),
+    initial() {
+        return {}
+    }
 }))
 
 bot.use(conversations())
@@ -50,4 +45,4 @@ bot.hears(/.*r[e]?c[o]?[m]{1,2}[e]?[n]?d.*/i, async (ctx) => {
 
 /* ========== START BOT ========== */
 bot.start();
-    /* ========== END START BOT ========== */
+/* ========== END START BOT ========== */
