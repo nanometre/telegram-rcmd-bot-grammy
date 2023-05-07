@@ -15,12 +15,12 @@ export const bot = new Bot(process.env.TELEGRAM_TOKEN);
 
 /* DATABASE SETUP */
 // MongoDB setup is not used for storing session/convo history (for now)
-const dbClient = await connect(process.env.MONGO_CONN_URI, 'rcmd_bot')
+export const db = await connect(process.env.MONGO_CONN_URI, 'rcmd_bot')
 /* END DATABASE SETUP */
 
 
 /* ========== MIDDLEWARE SETUP ========== */
-/* TODO: Add session storage?*/
+/* TODO: Add session storage? Session storage is need when using conversation middleware*/
 bot.use(session({
     initial: () => ({}),
 }))
@@ -41,7 +41,7 @@ bot.command("pin", async (ctx) => {
     await ctx.conversation.enter("pin")
 })
 
-/* check if message contains 'recommendation' and its abbreviation, and replies to the message */
+/* check if message contains 'recommend' and its abbreviation, and replies to the message */
 bot.hears(/.*r[e]?c[o]?[m]{1,2}[e]?[n]?d.*/i, async (ctx) => {
     await recommend(ctx)
 })
@@ -50,4 +50,4 @@ bot.hears(/.*r[e]?c[o]?[m]{1,2}[e]?[n]?d.*/i, async (ctx) => {
 
 /* ========== START BOT ========== */
 bot.start();
-    /* ========== END START BOT ========== */
+/* ========== END START BOT ========== */
